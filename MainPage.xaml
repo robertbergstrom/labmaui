@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:labmaui.ViewModels"
+             BackgroundColor="{DynamicResource PageBackgroundColor}"
+             BindingContext="{Binding Source={RelativeSource Self}}"
+             x:Class="labmaui.MainPage">
+
+    <ContentPage.BindingContext>
+        <local:GuitarViewModel />
+    </ContentPage.BindingContext>
+
+    <StackLayout Padding="20">
+        <Entry x:Name="NameEntry" Placeholder="Name" Text="{Binding NameEntryText}" Margin="0,20,0,20"/>
+        <Entry x:Name="PriceEntry" Placeholder="Price" Text="{Binding PriceEntryText}" Margin="0,20,0,20"/>
+        <Entry x:Name="ImageUrlEntry" Placeholder="Image URL" Text="{Binding ImageUrlEntryText}" Margin="0,20,0,20"/>
+            <Button Text="Update" Clicked="OnUpdateClicked" Margin="0,0,0,20"/>
+         <Label Text="Guitars" FontSize="20" Margin="0,0,0,20" />
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Add" Clicked="OnAddClicked" Margin="0,0,10,0"/>
+        </StackLayout>
+       
+        <ListView x:Name="GuitarsListView" ItemsSource="{Binding Guitars}" Margin="0,20,0,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="10,0">
+                            <Image Source="{Binding ImageUrl}" WidthRequest="100" HeightRequest="100" />
+                            <Label Text="{Binding Name}" VerticalOptions="CenterAndExpand"/>
+                            <Label Text="{Binding Price, StringFormat='Price: ${0:F2}'}" VerticalOptions="CenterAndExpand"/>
+                            <Button Text="Delete" Clicked="OnDeleteClicked" CommandParameter="{Binding .}" HorizontalOptions="EndAndExpand"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>
+
